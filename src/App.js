@@ -1,9 +1,10 @@
 import './App.css';
+import MapCanvas from './components/MapCanvas'
 
 function App() {
   return (
-    <div className="App">
-
+    <div className="App-wrapper">
+      <MapCanvas/>
     </div>
   );
 }

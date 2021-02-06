@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import GoogleMapReact from 'google-map-react';
 import SearchBar from './SearchBar';
 import Marker from './Marker';
-import { storeMarker, deleteAllMarkers } from '../actions/map';
+import MarkDisplayer from './MarkDisplayer';
+import { storeMarker } from '../actions/map';
 import store from '../store';
 import { stateModel, API_KEY } from './../models/data.models';
 
@@ -20,19 +21,22 @@ function MapCanvas() {
 
     useEffect(() => {
         if (trigger) {
-            _generateAddress()
+            generateAddress()
             setTrigger(false)
         }
     }, [trigger])
 
     useEffect(() => {
-        dispatch(storeMarker(state.stateModel))
-        setFooterData({ name: state.stateModel.places[0]?.name, address: state.stateModel.address })
+        if (marker) {
+            dispatch(storeMarker(state.stateModel))
+            setFooterData({ name: state.stateModel.places[0]?.name, address: state.stateModel.places[0]?.formatted_address })
+            setMarker(false)
+        }
     }, [marker]);
 
     const { places, mapApiLoaded, mapInstance, mapApi } = state.stateModel;
 
-    const _onChange = ({ center, zoom }) => {
+    const onChange = ({ center, zoom }) => {
         setState(prevState => ({
             stateModel: {
                 ...prevState.stateModel,
@@ -64,10 +68,10 @@ function MapCanvas() {
             }
         }))
         setTrigger(true)
-        setMarker(!marker)
+        setMarker(true)
     };
 
-    function _generateAddress() {
+    function generateAddress() {
         const { mapApi } = state.stateModel;
 
         const geocoder = new mapApi.Geocoder();
@@ -119,7 +123,7 @@ function MapCanvas() {
                 center={state.stateModel.center}
                 zoom={state.stateModel.zoom}
                 draggable={state.stateModel.draggable}
-                onChange={() => _onChange}
+                onChange={() => onChange}
                 bootstrapURLKeys={{
                     key: API_KEY,
                     libraries: ['places', 'geometry'],
@@ -139,22 +143,8 @@ function MapCanvas() {
                         lng={state.stateModel.lng}
                     />
                 }
-
             </GoogleMapReact>
-            <div onClick={() => dispatch(deleteAllMarkers())}>XXXXXXXXXXXX</div>
-            <div className="info-wrapper">
-                <div className="map-details"><span>{footerData.name}</span></div>
-                <div className="map-subdetails"><span>{footerData.address}</span></div>
-            </div>
-            <table>
-                <tbody>
-                    {store.getState()?.arr.map(item =>
-                        <tr key={item.places[0]?.name}>
-                            <td>{item.places[0]?.name}</td>
-                            <td>{item.address}</td>
-                        </tr>)}
-                </tbody>
-            </table>
+            <MarkDisplayer name={footerData.name} address={footerData.address} />
         </div >
     );
 

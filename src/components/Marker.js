@@ -1,19 +1,10 @@
 import React from 'react';
 
-const Marker = ({ text, onClick }) => (
+const Marker = ({lat, lng}) => (
     <div className="Marker-wrapper"
-        alt={text}
-        onClick={onClick}
+        lat={lat}
+        lng={lng}
     />
 );
-
-// Marker.defaultProps = {
-//     onClick: null,
-// };
-
-// Marker.propTypes = {
-//     onClick: PropTypes.func,
-//     text: PropTypes.string.isRequired,
-// };
 
 export default Marker;

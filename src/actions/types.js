@@ -1,0 +1,2 @@
+export const STORE_MARKER = "STORE_MARKER";
+export const DELETE_ALL_MARKERS = "DELETE_ALL_MARKERS";

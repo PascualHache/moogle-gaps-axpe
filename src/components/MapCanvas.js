@@ -12,17 +12,13 @@ function MapCanvas() {
     const [state, setState] = useState({ stateModel });
     const [trigger, setTrigger] = useState(false)
     const [marker, setMarker] = useState(false)
-    const [footerData, setFooterData] = useState({ name: "", address: "" })
-    const [storeArr, setStoreArr] = useState([])
+    const [footerData, setFooterData] = useState({ lat: "", lng: "", name: "", address: "" })
+    const [storeArr, setStoreArr] = useState({ arr: [{ lat: "", lng: "", places: "" }] })
     const dispatch = useDispatch();
 
     useEffect(() => {
         setCurrentLocation();
     }, []);
-
-    useEffect(() => {
-        setStoreArr(store.getState())
-    }, [store]);
 
     useEffect(() => {
         if (trigger) {
@@ -37,6 +33,7 @@ function MapCanvas() {
             setFooterData({ name: state.stateModel.places[0]?.name, address: state.stateModel.places[0]?.formatted_address })
             setMarker(false)
         }
+        setStoreArr(() => store.getState())
     }, [marker]);
 
     const { places, mapApiLoaded, mapInstance, mapApi } = state.stateModel;
@@ -126,22 +123,24 @@ function MapCanvas() {
             )}
             <GoogleMapReact
                 center={state.stateModel.center}
+                defaultCenter={{ lat: 0, lng: 0 }}
                 zoom={state.stateModel.zoom}
                 draggable={state.stateModel.draggable}
                 onChange={() => onChange}
                 bootstrapURLKeys={{
                     key: API_KEY,
-                    libraries: ['places', 'geometry'],
+                    libraries: ['places','geometry'],
                 }}
                 yesIWantToUseGoogleMapApiInternals
                 onGoogleApiLoaded={({ map, maps }) => apiHasLoaded(map, maps)}
             >
-                {storeArr.length > 1 ? storeArr.map((mark, index) =>
-                (index > 0 ? <Marker
+                {storeArr.arr.length > 1 ? storeArr.arr.map((mark, index) =>
+                (<Marker
                     key={index}
                     lat={mark.lat}
                     lng={mark.lng}
-                    onClick={() => setFooterData({ name: mark.places[0]?.name, address: mark.address })} /> : null)
+                    onClick={() => setFooterData({ name: mark.places[0]?.name, address: mark.places[0]?.formatted_address }) } />
+                )
                 ) :
                     <Marker
                         lat={state.stateModel.lat}

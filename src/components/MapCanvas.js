@@ -13,11 +13,16 @@ function MapCanvas() {
     const [trigger, setTrigger] = useState(false)
     const [marker, setMarker] = useState(false)
     const [footerData, setFooterData] = useState({ name: "", address: "" })
+    const [storeArr, setStoreArr] = useState([])
     const dispatch = useDispatch();
 
     useEffect(() => {
         setCurrentLocation();
     }, []);
+
+    useEffect(() => {
+        setStoreArr(store.getState())
+    }, [store]);
 
     useEffect(() => {
         if (trigger) {
@@ -131,7 +136,7 @@ function MapCanvas() {
                 yesIWantToUseGoogleMapApiInternals
                 onGoogleApiLoaded={({ map, maps }) => apiHasLoaded(map, maps)}
             >
-                {store.getState()?.arr.length > 1 ? store.getState()?.arr.map((mark, index) =>
+                {storeArr.length > 1 ? storeArr.map((mark, index) =>
                 (index > 0 ? <Marker
                     key={index}
                     lat={mark.lat}

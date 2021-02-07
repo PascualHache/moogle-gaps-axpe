@@ -11,13 +11,16 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 arr: [...state.arr, payload]
-            };
+            
+        };
         case DELETE_ALL_MARKERS:
             return {
                 ...state,
-                arr: payload
+                arr: []
             };
         default:
             return state;
     }
 }
+
+// ...state.arr, action.payload.marker

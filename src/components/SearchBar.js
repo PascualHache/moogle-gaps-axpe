@@ -35,7 +35,6 @@ class SearchBar extends Component {
 
         addplace(place);
         this.searchInput.blur();
-        console.log("adding place", place)
     };
 
     clearSearchBox() {

@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/moogle-gaps-axpe/static/css/main.974e1245.chunk.css",
+    "main.js": "/moogle-gaps-axpe/static/js/main.26606dca.chunk.js",
+    "main.js.map": "/moogle-gaps-axpe/static/js/main.26606dca.chunk.js.map",
+    "runtime-main.js": "/moogle-gaps-axpe/static/js/runtime-main.c1c49e29.js",
+    "runtime-main.js.map": "/moogle-gaps-axpe/static/js/runtime-main.c1c49e29.js.map",
+    "static/js/2.c26f3c23.chunk.js": "/moogle-gaps-axpe/static/js/2.c26f3c23.chunk.js",
+    "static/js/2.c26f3c23.chunk.js.map": "/moogle-gaps-axpe/static/js/2.c26f3c23.chunk.js.map",
+    "index.html": "/moogle-gaps-axpe/index.html",
+    "static/css/main.974e1245.chunk.css.map": "/moogle-gaps-axpe/static/css/main.974e1245.chunk.css.map",
+    "static/js/2.c26f3c23.chunk.js.LICENSE.txt": "/moogle-gaps-axpe/static/js/2.c26f3c23.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c1c49e29.js",
+    "static/js/2.c26f3c23.chunk.js",
+    "static/css/main.974e1245.chunk.css",
+    "static/js/main.26606dca.chunk.js"
+  ]
+}
